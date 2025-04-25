@@ -36,12 +36,17 @@ const settings = require("./settings.json");
 var express = require('express');
 var app = express();
 
-// Serve static files from the correct directory
-const staticPath = path.join(__dirname, '../build/www');
+// Serve static files from the src/www directory
+const staticPath = path.join(__dirname, '../src/www');
 if (settings.express.serveStatic) {
 	console.log('Serving static files from:', staticPath);
 	app.use(express.static(staticPath));
 }
+
+// Add a route for the root path
+app.get('/', (req, res) => {
+	res.sendFile(path.join(staticPath, 'index.html'));
+});
 
 var server = require('http').createServer(app);
 
