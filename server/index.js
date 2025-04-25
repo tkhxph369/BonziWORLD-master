@@ -4,6 +4,7 @@
 
 // Filesystem reading functions
 const fs = require('fs-extra');
+const path = require('path');
 
 // Load settings
 try {
@@ -34,8 +35,14 @@ const settings = require("./settings.json");
 // Setup basic express server
 var express = require('express');
 var app = express();
-if (settings.express.serveStatic)
-	app.use(express.static('../build/www'));
+
+// Serve static files from the correct directory
+const staticPath = path.join(__dirname, '../build/www');
+if (settings.express.serveStatic) {
+	console.log('Serving static files from:', staticPath);
+	app.use(express.static(staticPath));
+}
+
 var server = require('http').createServer(app);
 
 // Init socket.io
@@ -65,7 +72,6 @@ server.listen(port, function () {
 		"Server listening at port " + port
 	);
 });
-app.use(express.static(__dirname + '/public'));
 
 // ========================================================================
 // Banning functions
