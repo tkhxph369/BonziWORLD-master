@@ -40,7 +40,17 @@ var app = express();
 const staticPath = path.join(__dirname, '../src/www');
 if (settings.express.serveStatic) {
 	console.log('Serving static files from:', staticPath);
+	
+	// Serve all static files
 	app.use(express.static(staticPath));
+	
+	// Serve specific directories
+	app.use('/css', express.static(path.join(staticPath, 'css')));
+	app.use('/js', express.static(path.join(staticPath, 'js')));
+	app.use('/img', express.static(path.join(staticPath, 'img')));
+	app.use('/favicons', express.static(path.join(staticPath, 'favicons')));
+	app.use('/font', express.static(path.join(staticPath, 'font')));
+	app.use('/js_ext', express.static(path.join(staticPath, 'js_ext')));
 }
 
 // Add a route for the root path
