@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: bonziworld
+    env: node
+    buildCommand: |
+      npm install
+      cd src && npm install && grunt build_www
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000 
