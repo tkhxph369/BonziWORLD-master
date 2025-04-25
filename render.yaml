@@ -2,7 +2,11 @@ services:
   - type: web
     name: bonziworld
     env: node
-    buildCommand: npm install && cd server && npm install
+    buildCommand: |
+      npm install -g grunt-cli
+      npm install
+      cd server && npm install
+      grunt build
     startCommand: cd server && node index.js
     envVars:
       - key: NODE_ENV
